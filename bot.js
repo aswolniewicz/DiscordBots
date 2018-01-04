@@ -1,6 +1,29 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
+
+var commands = [];
+
+function registerCommand(cmd) {
+  commands.push(cmd);
+}
+
+registerCommand(function(args) {
+  if (args[0] == 'ping'){
+    return 'Pong!';
+  } else {
+    return null;
+  }
+});
+
+registerCommand(function(args) {
+  if (args[0] == 'mom'){
+    return 'Anna is my mom!';
+  } else {
+    return null;
+  }
+});
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -25,23 +48,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
 
-        args = args.splice(1);
-        switch(cmd) {
-        // !ping
-        case 'ping':
+        for (i = 0; i < commands.length; i++) {
+          var message = commands[i](args);
+          if (message) {
             bot.sendMessage({
-                to: channelID,
-                message: 'Pong!'
+              to: channelID,
+              message: message
             });
-        break;
+            return;
+          }
+        }
 
-        // !mom
-        case 'mom':
-          bot.sendMessage({
-            to: channelID,
-            message: 'Anna (pippintully) is my mom!'
-          });
-        break;
+        //args = args.splice(1);
+        switch(cmd) {
 
         // !choice
         case 'choice':

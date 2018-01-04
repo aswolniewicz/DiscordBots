@@ -2,27 +2,17 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 
+/*
+Each command is a function
+which takes an array of words without the ! as an argument. args[0] is the first
+command. The function should return the string to respond with or null if it
+doesn't match.
+*/
 var commands = [];
 
-function registerCommand(cmd) {
-  commands.push(cmd);
-}
-
-registerCommand(function(args) {
-  if (args[0] == 'ping'){
-    return 'Pong!';
-  } else {
-    return null;
-  }
-});
-
-registerCommand(function(args) {
-  if (args[0] == 'mom'){
-    return 'Anna is my mom!';
-  } else {
-    return null;
-  }
-});
+// Load Commands
+var simple = require("./commands/simple");
+commands = commands.concat(simple.commands);
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -45,9 +35,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
+      // Parsing the argument string.
         var args = message.substring(1).split(' ');
         var cmd = args[0];
 
+        // Going through each command and processing it.
         for (i = 0; i < commands.length; i++) {
           var message = commands[i](args);
           if (message) {
@@ -58,6 +50,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             return;
           }
         }
+        // No command was found.
+        bot.sendMessage({
+          to: channelID,
+          message: "I didn't understand! D:"
+        });
 
         //args = args.splice(1);
         switch(cmd) {

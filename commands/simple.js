@@ -16,10 +16,10 @@ var mom = function(args, user) {
   }
 };
 
-//!Hello
+//!Hello --> Hello lovely!
 var hello = function(args, user) {
   if (args[0] == 'hello'){
-    return 'Hello lovely ' + user + '!'
+    return 'Hello lovely ' + user + '!';
   } else {
     return null;
   }

@@ -13,6 +13,8 @@ var commands = [];
 // Load Commands
 var simple = require("./commands/simple");
 commands = commands.concat(simple.commands);
+var detailed = require("./commands/detailed");
+commands = commands.concat(detailed.commands);
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -31,7 +33,6 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    var number = 0;
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
@@ -50,58 +51,5 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             return;
           }
         }
-        // No command was found.
-        bot.sendMessage({
-          to: channelID,
-          message: "I didn't understand! D:"
-        });
-
-
-
-
-        //args = args.splice(1);
-        switch(cmd) {
-        // !choice
-        case 'choice':
-          number = (Math.floor((Math.random() * 10))) % 2;
-          if (number != 0) {
-            bot.sendMessage({
-              to: channelID,
-              message: 'Yessir!'
-            });
-          } else {
-             bot.sendMessage({
-               to: channelID,
-               message: 'Nope!'
-             });
-          }
-          break;
-
-          //!d20
-          case 'd20':
-            number = (Math.floor((Math.random() * 20)));
-            if (number == 20) {
-              bot.sendMessage({
-                to: channelID,
-                message: number + '! AYYYY CRIT!!!'
-              });
-            } else if (number > 10) {
-              bot.sendMessage({
-                to: channelID,
-                message: number + ', not bad!'
-              });
-            } else if (number == 1) {
-              bot.sendMessage({
-                to: channelID,
-                message: number + '... I just hope you live.'
-              });
-            } else {
-              bot.sendMessage({
-                to: channelID,
-                message: number + ', could be better!'
-              });
-            }
-            break;
-         }
      }
 });

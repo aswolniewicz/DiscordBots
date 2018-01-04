@@ -3,10 +3,10 @@ var logger = require('winston');
 var auth = require('./auth.json');
 
 /*
-Each command is a function
-which takes an array of words without the ! as an argument. args[0] is the first
-command. The function should return the string to respond with or null if it
-doesn't match.
+Each command is a function which takes an array of words without the ! as the first argument.
+args[0] is the first command.
+The second argument is the user.
+The function should return the string to respond with or null if it doesn't match.
 */
 var commands = [];
 
@@ -41,7 +41,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         // Going through each command and processing it.
         for (i = 0; i < commands.length; i++) {
-          var message = commands[i](args);
+          var message = commands[i](args, user);
           if (message) {
             bot.sendMessage({
               to: channelID,
@@ -56,9 +56,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           message: "I didn't understand! D:"
         });
 
+
+
+
         //args = args.splice(1);
         switch(cmd) {
-
         // !choice
         case 'choice':
           number = (Math.floor((Math.random() * 10))) % 2;
@@ -99,14 +101,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 message: number + ', could be better!'
               });
             }
-            break;
-
-            // !hello
-            case 'hello':
-            bot.sendMessage({
-              to: channelID,
-              message: 'Hello you beautiful human!'
-            });
             break;
          }
      }

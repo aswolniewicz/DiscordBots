@@ -1,5 +1,5 @@
 //!ping --> Pong!
-var ping = function(args, user) {
+var ping = function(user, userID, channelID, message, evt, args) {
   if (args[0] == 'ping'){
     return 'Pong!';
   } else {
@@ -8,21 +8,30 @@ var ping = function(args, user) {
 };
 
 //!mom --> Anna is my mom!
-var mom = function(args, user) {
+var mom = function(user, userID, channelID, message, evt, args) {
   if (args[0] == 'mom'){
-    return 'Anna is my mom!';
+    return 'Anna (pippintully) is my mom!';
   } else {
     return null;
   }
 };
 
 //!Hello --> Hello lovely!
-var hello = function(args, user) {
+var hello = function(user, userID, channelID, message, evt, args) {
   if (args[0] == 'hello'){
-    return 'Hello lovely ' + user + '!';
+    return 'Hello lovely!';
   } else {
     return null;
   }
 };
 
-module.exports.commands = [ping, mom, hello];
+//!help --> ask for help!
+var help = function(user, userID, channelID, message, evt, args) {
+  if (args[0] == 'help'){
+    return "Ask Anna ( @pippintully ) for help! I'm still learning.";
+  } else {
+    return null;
+  }
+}
+
+module.exports.commands = [ping, mom, hello, help];

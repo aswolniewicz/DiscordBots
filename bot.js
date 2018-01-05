@@ -32,7 +32,7 @@ bot.on('ready', function (evt) {
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
-bot.on('message', function (user, userID, channelID, message, evt) {
+bot.on('message', function (user, userID, channelID, message, evt, args) {
     // Our bot needs to know if it will execute a command
     // It will listen for messages that will start with `!`
     if (message.substring(0, 1) == '!') {
@@ -42,12 +42,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         // Going through each command and processing it.
         for (i = 0; i < commands.length; i++) {
-          var message = commands[i](args, user);
+          var message = commands[i](user, userID, channelID, message, evt, args);
           if (message) {
             bot.sendMessage({
               to: channelID,
               message: message
             });
+            bot.sendMessage({"hello, ${userID}"});
             return;
           }
         }

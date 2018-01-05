@@ -1,7 +1,7 @@
 {
-  "name": "greeter-bot",
+  "name": "McBot",
   "version": "1.0.0",
-  "description": "My own Discord bot",
+  "description": "A little chat bot.",
   "main": "bot.js",
   "author": "pippintully",
   "dependencies": {

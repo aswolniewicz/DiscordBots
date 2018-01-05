@@ -1,5 +1,5 @@
 // !choice --> yes or no
-var choice = function(args, user) {
+var choice = function(user, userID, channelID, message, evt, args) {
   if (args[0] == 'choice'){
     var number = ((Math.floor((Math.random() * 10))) + 1) % 2;
     if (number != 0) {
@@ -13,7 +13,7 @@ var choice = function(args, user) {
 };
 
 // !d20 --> random number from 1 to 20
-var d20 = function(args, user) {
+var d20 = function(user, userID, channelID, message, evt, args) {
   if (args[0] == 'd20'){
     number = (Math.floor((Math.random() * 20)) + 1);
     if (number == 20) {

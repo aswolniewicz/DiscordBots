@@ -16,9 +16,10 @@ client.on("message", (message) => {
  }
 
  // check to see if message is a bad word
- if (message.content === 'poop') {
+ if (message.content.toLowerCase() === 'poop') {
    // send emssage and alert them
-   message.reply(message.author, 'bad word');
+   message.reply(message.author);
+   message.channel.send("That's a bad word!");
  }
 });
 

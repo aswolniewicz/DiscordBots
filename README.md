@@ -1,5 +1,6 @@
 # DiscordBots
-#### These are all the different discord bots I have created based on online tutorials.       
+#### These are all the different discord bots I have created based on online tutorials. 
+#### None of the bots are connected to any guilds. 
 
 ### McBot
 * A simple bot that will respond to basic commands, does not know how to moderate.
